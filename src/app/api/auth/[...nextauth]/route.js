@@ -12,7 +12,7 @@ export const authOptions = {
         password: { label: "username", type: "password" },
       },
       async authorize(credentials, req) {
-        const res = await fetch("http://localhost:3000/api/db/auth", {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/db/auth`, {
           method: "POST",
           headers: {
             accept: "application/json",
