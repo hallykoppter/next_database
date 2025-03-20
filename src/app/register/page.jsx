@@ -12,10 +12,13 @@ const Register = () => {
     e.preventDefault()
     const hashedPassword = await bcrypt.hash(password, 10)
     const data = { name, username, hashedPassword }
-    const req = await fetch(`${process.env.VERCEL_URL}/api/db/users`, {
-      method: "POST",
-      body: JSON.stringify(data),
-    })
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/db/users`,
+      {
+        method: "POST",
+        body: JSON.stringify(data),
+      }
+    )
     const res = await req.json()
     if (res.status == 403) return alert("Error")
     else return console.log(res)
