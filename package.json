@@ -10,10 +10,14 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@leenguyen/react-flip-clock-countdown": "^1.6.1",
     "@prisma/client": "^6.5.0",
     "bcryptjs": "^3.0.2",
-    "next": "15.2.2",
+    "date-fns": "^4.1.0",
+    "next": "^15.2.4",
     "next-auth": "^4.24.11",
+    "primeicons": "^7.0.0",
+    "primereact": "^10.9.4",
     "prisma": "^6.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

@@ -1,9 +1,12 @@
-import { getServerSession } from "next-auth/next"
+import Countdown from "@/components/Countdown"
+import { getSetting } from "@/libs/SettingsService"
+
 const Page = async () => {
-  const session = await getServerSession()
   return (
-    <div className="flex min-h-screen justify-center items-center">
-      <div className="flex justify-between items-center bg-blue-700 gap-8 rounded-xl p-8"></div>
+    <div className="flex min-h-screen justify-center items-center bg-black flex-col">
+      <div className="flex justify-center p-10 rounded-md items-center">
+        <Countdown />
+      </div>
     </div>
   )
 }

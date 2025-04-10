@@ -3,6 +3,8 @@ import "./globals.css"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "./api/auth/[...nextauth]/route"
 import ClientProvider from "@/libs/ClientProvider"
+import "primeicons/primeicons.css"
+import "primereact/resources/themes/lara-dark-blue/theme.css"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,6 +24,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Aldrich&family=Baloo+Bhai+2:wght@400..800&family=Titan+One&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

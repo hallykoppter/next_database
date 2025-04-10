@@ -1,6 +1,233 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&family=Titan+One&display=swap");
 
 @theme {
   --font-baloo: "Baloo Bhai 2", sans-serif;
+  --font-titan: "Titan One", sans-serif;
+  --color-body: #fdf4f5;
+  --color-primary: #4299e1;
+  --color-secondary: #ff6347;
+  --color-secondaryH: #ff5865;
+  --color-third: #bc94c8;
+}
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.loader {
+  position: relative;
+  height: 200px;
+  width: 200px;
+  border-bottom: 3px solid #ff3d00;
+  box-sizing: border-box;
+  animation: drawLine 4s linear infinite;
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  left: calc(100% + 14px);
+  bottom: -6px;
+  width: 16px;
+  height: 100px;
+  border-radius: 20px 20px 50px 50px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(#ff3d00 6px, transparent 0),
+    linear-gradient(45deg, rgba(0, 0, 0, 0.02) 49%, white 51%),
+    linear-gradient(315deg, rgba(0, 0, 0, 0.02) 49%, white 51%),
+    linear-gradient(
+      to bottom,
+      #ffffff 10%,
+      #ff3d00 10%,
+      #ff3d00 90%,
+      #ffffff 90%
+    );
+  background-size: 3px 3px, 8px 8px, 8px 8px, 16px 88px;
+  background-position: center bottom, left 88px, right 88px, left top;
+  transform: rotate(25deg);
+  animation: pencilRot 4s linear infinite;
+}
+
+@keyframes drawLine {
+  0%,
+  100% {
+    width: 0px;
+  }
+  45%,
+  55% {
+    width: 200px;
+  }
+}
+
+@keyframes pencilRot {
+  0%,
+  45% {
+    bottom: -6px;
+    left: calc(100% + 14px);
+    transform: rotate(25deg);
+  }
+  55%,
+  100% {
+    bottom: -12px;
+    left: calc(100% + 16px);
+    transform: rotate(220deg);
+  }
+}
+
+.page-loading {
+  width: 60px;
+  height: 40px;
+  position: relative;
+  display: inline-block;
+  --base-color: #263238; /*use your base color*/
+}
+.page-loading::before {
+  content: "";
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #fff;
+  background-image: radial-gradient(
+      circle 8px at 18px 18px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 4px at 18px 0px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 4px at 0px 18px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 4px at 36px 18px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 4px at 18px 36px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 4px at 30px 5px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 4px at 30px 5px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 4px at 30px 30px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 4px at 5px 30px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 4px at 5px 5px,
+      var(--base-color) 100%,
+      transparent 0
+    );
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  animation: rotationBack 3s linear infinite;
+}
+.page-loading::after {
+  content: "";
+  left: 35px;
+  top: 15px;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #fff;
+  background-image: radial-gradient(
+      circle 5px at 12px 12px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 2.5px at 12px 0px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 2.5px at 0px 12px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 2.5px at 24px 12px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 2.5px at 12px 24px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 2.5px at 20px 3px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 2.5px at 20px 3px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 2.5px at 20px 20px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 2.5px at 3px 20px,
+      var(--base-color) 100%,
+      transparent 0
+    ),
+    radial-gradient(
+      circle 2.5px at 3px 3px,
+      var(--base-color) 100%,
+      transparent 0
+    );
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  animation: rotationBack 4s linear infinite reverse;
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+
+.p-tabmenu {
+  font-family: "Baloo Bhai 2", sans-serif;
+}
+
+.p-menuitem-link {
+  background-color: transparent;
 }

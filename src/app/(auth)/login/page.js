@@ -18,7 +18,7 @@ const Page = () => {
       username: username,
       password: password,
       redirect: true,
-      callbackUrl: "/",
+      callbackUrl: "/dashboard",
     })
   }
 
