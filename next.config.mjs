@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  allowedDevOrigins: ["local-origi.dev", "*local-origin.dev"],
+}
 
-export default nextConfig;
+export default nextConfig

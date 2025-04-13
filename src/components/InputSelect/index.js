@@ -1,23 +1,28 @@
 import { useEffect, useState } from "react"
 
-const InputSelect = ({ label, id, grow, option, defvalue }) => {
-  const [value, setValue] = useState()
-  const [opsi, setOpsi] = useState()
+const InputSelect = ({ label, id, grow, option, defvalue, onchange }) => {
+  const [value, setValue] = useState(undefined)
+  const [opsi, setOpsi] = useState(undefined)
 
   function checkVariable() {
-    if (defvalue != undefined) {
-      const op = option?.map((opsi, index) => {
-        return (
-          <option className="text-black" value={opsi.value} key={index}>
-            {opsi.label}
-          </option>
-        )
-      })
-      setValue(defvalue)
-      setOpsi(op)
+    function check() {
+      if (defvalue != undefined) {
+        const op = option?.map((opsi, index) => {
+          return (
+            <option className="text-black" value={opsi.value} key={index}>
+              {opsi.label}
+            </option>
+          )
+        })
+        setValue(defvalue)
+        setOpsi(op)
+      }
     }
+    const a = setTimeout(check, 0)
+    if (value) clearTimeout(a)
   }
-  setTimeout(checkVariable, 1000)
+
+  checkVariable()
 
   return (
     <div className={"relative flex " + grow}>

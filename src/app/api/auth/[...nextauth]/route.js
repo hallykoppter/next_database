@@ -9,7 +9,8 @@ export const authOptions = {
       name: "credentials",
       credentials: {
         username: { label: "username", type: "text" },
-        password: { label: "username", type: "password" },
+        password: { label: "password", type: "password" },
+        role: { label: "credentials", type: "text" },
       },
       async authorize(credentials, req) {
         const res = await fetch(
@@ -23,6 +24,7 @@ export const authOptions = {
             body: JSON.stringify({
               username: credentials?.username,
               password: credentials?.password,
+              role: credentials?.role,
             }),
           }
         )

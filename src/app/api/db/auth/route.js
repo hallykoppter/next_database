@@ -3,21 +3,29 @@ import bcrypt from "bcryptjs"
 import { NextResponse } from "next/server"
 
 export async function POST(request) {
-  const { username, password } = await request.json()
-  const req = await prisma.users.findUnique({
-    where: {
-      username: username,
-    },
-  })
+  const { username, password, role } = await request.json()
+  let req
+  if (role == "admin") {
+    req = await prisma.users.findUnique({
+      where: {
+        username: username,
+      },
+    })
+  } else if (role == "siswa") {
+    req = await prisma.siswa.findUnique({
+      where: {
+        nisn: username,
+      },
+    })
+  }
+
   const verifyPassword = await bcrypt.compare(password, req?.password)
 
   const user = {
     name: req.name,
     username: req.username,
-    token: "admin" + username,
+    role: role,
   }
-
-  console.log(verifyPassword)
   if (!verifyPassword) return Response.json(null)
   else return NextResponse.json(user)
 

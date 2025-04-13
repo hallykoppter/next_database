@@ -5,12 +5,13 @@ const InputDatetime = ({ label, id, grow, defvalue }) => {
 
   function checkVariable() {
     if (defvalue != undefined) {
+      console.log(defvalue)
       const newDate = new Date(defvalue).toISOString().slice(0, 16)
       setDate(newDate)
     }
   }
 
-  setTimeout(checkVariable, 2000)
+  setTimeout(checkVariable, 0)
 
   return (
     <div className={"relative flex " + grow}>

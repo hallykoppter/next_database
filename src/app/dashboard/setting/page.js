@@ -6,10 +6,15 @@ import InputText from "@/components/InputText"
 import InputTextArea from "@/components/InputTextArea"
 import { getSetting } from "@/libs/SettingsService"
 import { addHours } from "date-fns"
-import { useEffect, useState } from "react"
+import { Toast } from "primereact/toast"
+import { useEffect, useRef, useState } from "react"
 
 const Page = () => {
+  const toast = useRef(null)
   const [data, setSetting] = useState()
+  const [semester, setSemester] = useState()
+  const [izin_login, setIzinLogin] = useState()
+  const [aktif_pengumuman, setAktifPengumuman] = useState()
   const setting = data?.setting
   useEffect(() => {
     async function fetch() {
@@ -21,9 +26,48 @@ const Page = () => {
 
   const handleChange = async (event) => {
     event.preventDefault()
-    const data = Object.fromEntries(new FormData(event.target))
-    console.log(data)
+    let data = Object.fromEntries(new FormData(event.target))
+    const req = await fetch(
+      `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/db/settings`,
+      {
+        method: "PUT",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "multipart/form-data",
+        },
+        body: JSON.stringify(data),
+      }
+    )
+    const res = await req.json()
+    if (res.status == 200) {
+      toast.current.show({
+        severity: "success",
+        Summary: "Berhasil",
+        detail: "Berhasil update data",
+        life: 2000,
+      })
+    } else {
+      toast.current.show({
+        severity: "error",
+        Summary: "Error",
+        detail: "Update gagal",
+        life: 2000,
+      })
+    }
   }
+
+  let w
+  function checkVariable() {
+    if (setting?.waktu_pengumuman != undefined) {
+      const waktu_awal = new Date(setting?.waktu_pengumuman)
+      const waktu = addHours(waktu_awal, 7)
+      w = waktu
+    }
+  }
+
+  checkVariable()
+
+  // console.log({ waktu_awal, waktu })
 
   const option = {
     semester: [
@@ -39,9 +83,6 @@ const Page = () => {
       { value: "1", label: "diizinkan" },
     ],
   }
-
-  const today = new Date().toISOString("id-ID", { timeZone: "Asia/Jakarta" })
-  const newToday = addHours(today, 7).toISOString()
 
   return (
     <div className="flex font-baloo flex-col mx-auto gap-5 justify-center items-center mt-5 p-5 rounded-md bg-gray-500 shadow-2xl shadow-gray-500/50 w-[80vw]">
@@ -115,6 +156,7 @@ const Page = () => {
           id={"waktu_pengumuman"}
           label={"Waktu Pengumuman"}
           grow={"flex-2/2"}
+          defvalue={w}
         />
         <InputTextArea
           id={"alamat_sekolah"}
@@ -126,6 +168,7 @@ const Page = () => {
           Save
         </button>
       </form>
+      <Toast ref={toast} />
     </div>
   )
 }

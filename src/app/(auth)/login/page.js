@@ -17,6 +17,7 @@ const Page = () => {
     signIn("credentials", {
       username: username,
       password: password,
+      role: "admin",
       redirect: true,
       callbackUrl: "/dashboard",
     })
@@ -29,6 +30,7 @@ const Page = () => {
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col justify-center items-center gap-3 p-5 bg-blue-700 shadow-2xl shadow-blue-700/70 rounded-xl font-baloo px-6">
             <h1 className="text-2xl text-white">Silakan Masuk</h1>
+            <input type="hidden" id="role" name="role" value="admin" />
             <input
               type="text"
               placeholder="Username"

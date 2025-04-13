@@ -5,7 +5,7 @@ import FlipClockCountdown from "@leenguyen/react-flip-clock-countdown"
 import "@leenguyen/react-flip-clock-countdown/dist/index.css"
 import { useEffect, useState } from "react"
 
-const Countdown = () => {
+const Countdown = ({ oncomplete }) => {
   const [data, setData] = useState()
   const [isLoading, setLoading] = useState(true)
   const setting = data?.setting
@@ -40,13 +40,11 @@ const Countdown = () => {
   }
   const label = ["Hari", "Jam", "Menit", "Detik"]
 
-  const handleComplete = () => {
-    console.log("The time is over")
-  }
+  if (!setting) return ""
 
   return (
     <FlipClockCountdown
-      to={new Date(setting.waktu_pengumuman)}
+      to={new Date(setting?.waktu_pengumuman)}
       renderOnServer
       suppressHydrationWarning={true}
       digitBlockStyle={style.block}
@@ -55,9 +53,7 @@ const Countdown = () => {
       separatorStyle={style.separator}
       labels={label}
       renderMap={[true, true, true, true]}
-      className="flex flex-wrap justify-center px-10 md:px-0"
-      onComplete={handleComplete}
-      hideOnComplete
+      onComplete={oncomplete}
       stopOnHiddenVisibility
     />
   )

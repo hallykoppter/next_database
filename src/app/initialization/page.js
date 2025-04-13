@@ -2,7 +2,8 @@
 import InputText from "@/components/InputText"
 import InputTextArea from "@/components/InputTextArea"
 import { useState } from "react"
-import { addYears } from "date-fns"
+import { addHours, addYears } from "date-fns"
+import { useRouter } from "next/navigation"
 
 const Page = () => {
   const [nama_sekolah, setNamaSekolah] = useState()
@@ -11,14 +12,18 @@ const Page = () => {
   const [nama_kepsek, setNamaKepsek] = useState()
   const [nip_kepsek, setNipKepsek] = useState()
   const [alamat_sekolah, setAlamatSekolah] = useState()
+  const router = useRouter()
+
+  const date = addHours(addYears(new Date(), 1), 7).toISOString().slice(0, 16)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+
     const logo_sekolah = "default.jpg"
     const semester = "2024/2025"
     const izin_login = 0
     const aktif_pengumuman = 0
-    const waktu_pengumuman = addYears(new Date(), 1)
+    const waktu_pengumuman = date
 
     const req = await fetch(
       `${process.env.NEXT_PUBLIC_VERCEL_URL}/api/db/settings`,
@@ -45,14 +50,14 @@ const Page = () => {
     )
 
     const res = await req.json()
-
-    console.log(res)
+    if (res.status == 200) router.push("/")
+    else console.log("Something went wrong")
   }
 
   return (
     <div className="flex min-h-screen justify-center items-center bg-black">
-      <div className="bg-gray-300 max-w-[90vw] md:max-w-[50vw] shadow shadow-gray-400/85 p-5 rounded-md flex flex-col">
-        <h1 className="flex text-xl md:mb-5 mb-3 text-black font-baloo font-bold justify-center items-center">
+      <div className="bg-gray-800 max-w-[90vw] md:max-w-[50vw] shadow-2xl shadow-gray-400/30 p-5 rounded-md flex flex-col">
+        <h1 className="flex text-xl md:mb-5 mb-3 text-white font-baloo font-bold justify-center items-center">
           Inisialisasi Data Sekolah
         </h1>
         <form className="flex flex-col gap-2" onSubmit={handleSubmit}>

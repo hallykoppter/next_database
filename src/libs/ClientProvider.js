@@ -18,7 +18,7 @@ const ClientProvider = ({ children }) => {
       }
     )
     const res = await req.json()
-    if (res.setting.id != 1) {
+    if (res.setting?.id != 1 || !res.setting?.id) {
       router.push("/initialization")
     }
   }

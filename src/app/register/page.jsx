@@ -1,12 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import bcrypt from "bcryptjs"
+import { Toast } from "primereact/toast"
+import { useRouter } from "next/navigation"
 
 const Register = () => {
   const [name, setName] = useState()
   const [username, setUsername] = useState()
   const [password, setPassword] = useState()
+  const toast = useRef()
+  const router = useRouter()
 
   const handleRegister = async (e) => {
     e.preventDefault()
@@ -20,8 +24,17 @@ const Register = () => {
       }
     )
     const res = await req.json()
-    if (res.status == 403) return alert("Error")
-    else return console.log(res)
+    if (res.status == 200) {
+      toast.current.show({
+        severity: "success",
+        summary: "Berhasil",
+        detail: "Akun berhasil dibuat",
+        life: 3000,
+      })
+    } else return console.log(res)
+  }
+  const handleHide = () => {
+    router.push("/login")
   }
 
   return (
@@ -30,7 +43,7 @@ const Register = () => {
         <div className="flex flex-col items-center bg-fuchsia-600 p-7 shadow-fuchsia-600/60 shadow-2xl rounded-xl justify-center gap-5">
           <div className="text-center text-white">Register</div>
           <input
-            className="p-2 px-4 border-2 rounded-md bg-white text-black"
+            className="p-2 px-4 border-2 rounded-md  text-white"
             type="text"
             placeholder="Nama Lengkap"
             onChange={(e) => {
@@ -38,7 +51,7 @@ const Register = () => {
             }}
           ></input>
           <input
-            className="p-2 px-4 border-2 rounded-md bg-white text-black"
+            className="p-2 px-4 border-2 rounded-md  text-white"
             type="text"
             placeholder="Username"
             onChange={(e) => {
@@ -46,7 +59,7 @@ const Register = () => {
             }}
           ></input>
           <input
-            className="p-2 px-4 border-2 rounded-md bg-white text-black"
+            className="p-2 px-4 border-2 rounded-md text-white"
             type="password"
             placeholder="Password"
             onChange={(e) => {
@@ -58,6 +71,7 @@ const Register = () => {
           </button>
         </div>
       </form>
+      <Toast ref={toast} onHide={handleHide} />
     </div>
   )
 }

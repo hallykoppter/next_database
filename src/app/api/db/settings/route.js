@@ -12,7 +12,6 @@ export async function GET() {
 
 export async function POST(request) {
   const data = await request.json()
-  console.log(data)
   const setting = await prisma.settings.upsert({
     where: {
       id: 1,
@@ -47,5 +46,21 @@ export async function POST(request) {
 
   if (!setting)
     return Response.json({ status: 500, message: "something went wrong" })
+  else return Response.json({ status: 200 })
+}
+
+export async function PUT(request) {
+  let data = await request.json()
+  data.izin_login = Number(data.izin_login)
+  data.aktif_pengumuman = Number(data.aktif_pengumuman)
+  console.log()
+  const req = await prisma.settings.update({
+    where: {
+      id: 1,
+    },
+    data: data,
+  })
+  if (!req)
+    return Response.json({ status: 400, message: "something went wrong" })
   else return Response.json({ status: 200 })
 }
