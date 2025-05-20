@@ -12,9 +12,6 @@ import { useEffect, useRef, useState } from "react"
 const Page = () => {
   const toast = useRef(null)
   const [data, setSetting] = useState()
-  const [semester, setSemester] = useState()
-  const [izin_login, setIzinLogin] = useState()
-  const [aktif_pengumuman, setAktifPengumuman] = useState()
   const setting = data?.setting
   useEffect(() => {
     async function fetch() {
@@ -168,7 +165,7 @@ const Page = () => {
           Save
         </button>
       </form>
-      <Toast ref={toast} />
+      <Toast ref={toast} onHide={() => location.reload()} />
     </div>
   )
 }

@@ -5,6 +5,9 @@ import { authOptions } from "./api/auth/[...nextauth]/route"
 import ClientProvider from "@/libs/ClientProvider"
 import "primeicons/primeicons.css"
 import "primereact/resources/themes/lara-dark-blue/theme.css"
+import { getSetting } from "@/libs/SettingsService"
+
+const { setting } = await getSetting()
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,7 +20,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata = {
-  title: "SKL | Spentira",
+  title: "SKL |  " + setting?.nama_sekolah,
   description: "Informasi Keterangan Lulus SMPN 3 Rancah",
 }
 

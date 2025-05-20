@@ -9,9 +9,10 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
 
 model Users {
   id                        Int @id @default(autoincrement())
@@ -33,4 +34,16 @@ model Settings {
   aktif_pengumuman          Int
   waktu_pengumuman          String
   izin_login                Int
+}
+
+model Siswa {
+  id                        Int @id @default(autoincrement())
+  nama                      String
+  nis                       String
+  nisn                      String @unique
+  kelas                     String
+  password                  String
+  tempat_lahir              String
+  tanggal_lahir             String
+  keterangan                Int
 }

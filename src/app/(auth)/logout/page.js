@@ -9,7 +9,7 @@ const Page = () => {
     e.preventDefault()
     signOut({
       provider: "credentials",
-      callbackUrl: "/login",
+      callbackUrl: "/",
       redirect: true,
     })
   }

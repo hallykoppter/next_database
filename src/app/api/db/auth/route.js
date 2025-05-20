@@ -19,38 +19,16 @@ export async function POST(request) {
     })
   }
 
-  const verifyPassword = await bcrypt.compare(password, req?.password)
+  const verifyPassword = await bcrypt.compare(
+    password,
+    req?.password.toString()
+  )
 
   const user = {
-    name: req.name,
-    username: req.username,
+    name: req.name || req.nama,
+    username: req.username || req.nisn,
     role: role,
   }
   if (!verifyPassword) return Response.json(null)
   else return NextResponse.json(user)
-
-  //   const verifyPassword = await bcrypt.compare(password, req.password)
-  //   const user = {
-  //     name: req.name,
-  //     username: req.username,
-  //     token: "admin/".username,
-  //   }
-  //   if (!verifyPassword) {
-  //     return NextResponse.json({ status: 403 })
-  //   } else {
-  //     return NextResponse.json({ status: 200 })
-  //   }
-  //   bcrypt.compare(password, req.password, (err, res) => {
-  //     if (res == true) {
-  //       const user = {
-  //         name: req.name,
-  //         username: req.username,
-  //         token: "admin".username,
-  //       }
-  //       return Response.json({ status: 200, user: user })
-  //     } else {
-  //       console.log(err)
-  //       return Response.json({ statu: 404 })
-  //     }
-  //   })
 }
